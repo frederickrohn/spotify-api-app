@@ -10,6 +10,7 @@ import os
 import json
 import base64
 from requests import post, get
+import datetime
 
 load_dotenv()
 
@@ -96,13 +97,13 @@ def test_get_songs():
 
     songs = get_songs_by_artist(token, travis_scott_id)
     #print(songs[0])
-
-    print((songs))
-
+    print(datetime.date.today())
+    
     for i in range(len(songs)):
-        print(i, songs[i]["name"], songs[i]["popularity"])
+        print(i + 1, songs[i]["name"], songs[i]["popularity"])
 
 test_get_songs()
+
 
 
 
