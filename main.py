@@ -102,7 +102,64 @@ def test_get_songs():
     for i in range(len(songs)):
         print(i + 1, songs[i]["name"], songs[i]["popularity"])
 
-test_get_songs()
+#test_get_songs()
+
+def get_related_genres(token, artist_id):
+    url = f"https://api.spotify.com/v1/artists/{artist_id}"
+    headers = get_auth_header(token)
+    result = get(url, headers=headers)
+    json_result = json.loads(result.content)["genres"]
+    return json_result
+
+def get_related_artists(token, artist_id):
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/related-artists"
+    headers = get_auth_header(token)
+    result = get(url, headers=headers)
+    json_result = json.loads(result.content)
+    return json_result
+
+def get_song_features(token, song_id):
+    url = f"https://api.spotify.com/v1/audio-features/{song_id}"
+    headers = get_auth_header(token)
+    result = get(url, headers=headers)
+    json_result = json.loads(result.content)
+    return json_result
+
+def get_azelrm():
+    token = get_token()
+    azel_rm = search_for_artist(token, "azel rm")
+    azel_rm_id = get_artist_id(azel_rm)
+
+    print("Azel's id: ", azel_rm_id)
+
+    songs = get_songs_by_artist(token, azel_rm_id)
+    #print(songs[0])
+    print(datetime.date.today())
+    print("Top 10")
+    
+    for i in range(len(songs)):
+        print(i + 1, songs[i]["name"], songs[i]["popularity"])
+    
+    #print("hurt me again")
+    #print(songs[3])
+
+    print("related genres:")
+    print(get_related_genres(token, azel_rm_id))
+
+    print("related artists:")
+    print(get_related_artists(token, azel_rm_id))
+
+    print("second song:")
+    second_song_id = songs[1]["id"]
+    print(get_song_features(token, second_song_id))
+
+
+
+get_azelrm()
+
+
+    
+
 
 
 
