@@ -149,9 +149,12 @@ def get_azelrm():
     print("related artists:")
     print(get_related_artists(token, azel_rm_id))
 
-    print("second song:")
-    second_song_id = songs[1]["id"]
-    print(get_song_features(token, second_song_id))
+    print("top song:")
+    top_song_id = songs[0]["id"]
+    song_features = get_song_features(token, top_song_id)
+
+    for key, value in song_features.items(): 
+        print(f"{key}: {value}")
 
 
 
