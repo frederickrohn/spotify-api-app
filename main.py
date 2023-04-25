@@ -158,7 +158,42 @@ def get_azelrm():
 
 
 
-get_azelrm()
+#get_azelrm()
+
+def get_artist_details(name):
+    token = get_token()
+    artist = search_for_artist(token, name)
+    artist_id = get_artist_id(artist)
+
+    print(f"{name}'s id: ", artist_id)
+
+    songs = get_songs_by_artist(token, artist_id)
+    #print(songs[0])
+    print(datetime.date.today())
+    print("Top 10")
+    
+    for i in range(len(songs)):
+        print(i + 1, songs[i]["name"], songs[i]["popularity"])
+
+    print("related genres:")
+    print(get_related_genres(token, artist_id))
+
+    print("related artists:")
+    related_artist_details = get_related_artists(token, artist_id)['artists']
+    related_artists = []
+    for i in range(len(related_artist_details)):
+        related_artists.append(related_artist_details[i]['name'])
+    print(related_artists)
+
+    print("top song:")
+    top_song_id = songs[0]["id"]
+    song_features = get_song_features(token, top_song_id)
+
+    for key, value in song_features.items(): 
+        print(f"{key}: {value}")
+
+get_artist_details("rio da yung og")
+#get_artist_details("azel rm")
 
 
     
