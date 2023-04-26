@@ -77,6 +77,10 @@ def test_search_for_artist():
 def get_artist_id(artist):
     return artist["id"]
 
+def get_artist_popularity(artist):
+    return artist['popularity']
+
+
 def test_get_artist_id():
     artist = search_for_artist(get_token(), "Travis Scott")
     print(get_artist_id(artist))
@@ -164,6 +168,7 @@ def get_artist_details(name):
     token = get_token()
     artist = search_for_artist(token, name)
     artist_id = get_artist_id(artist)
+    print(get_artist_popularity(artist))
 
     print(f"{name}'s id: ", artist_id)
 
@@ -192,8 +197,63 @@ def get_artist_details(name):
     for key, value in song_features.items(): 
         print(f"{key}: {value}")
 
-get_artist_details("rio da yung og")
+#get_artist_details("rio da yung og")
 #get_artist_details("azel rm")
+#get_artist_details("downtown kayoto")
+
+
+def aggregate_artists(name):
+    token = get_token()
+    artist = search_for_artist(token, name)
+    artist_id = get_artist_id(artist)
+
+    print(f"{name}'s id: ", artist_id)
+
+    print("related artists:")
+    related_artist_details = get_related_artists(token, artist_id)['artists']
+    related_artists = []
+    for i in range(len(related_artist_details)):
+        related_artists.append(related_artist_details[i]['name'])
+    #print(related_artists)
+
+    copy = related_artists.copy()
+    final_set = set(related_artists.copy())
+
+    for i in range(len(copy)):
+        new_name = copy[i]
+        a = search_for_artist(token, new_name)
+        a_id = get_artist_id(a)
+
+        related_a_details = get_related_artists(token, a_id)['artists']
+        related_a = []
+
+        for i in range(len(related_a_details)):
+            final_set.add(related_a_details[i]['name'])
+        
+
+    print(final_set)
+
+    lowest_p = 100
+    lowest_p_artist = ""
+    l = list(final_set)
+
+    for i in range(len(final_set)):
+        a = l[i]
+        current = search_for_artist(token, name)
+        current_popularity = get_artist_popularity(current)
+        if current_popularity<lowest_p:
+            lowest_p = current_popularity
+            lowest_p_artist = current['name']
+
+    print(lowest_p_artist)
+
+aggregate_artists('downtown kayoto')
+
+
+
+
+
+
 
 
     
