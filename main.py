@@ -239,7 +239,7 @@ def aggregate_artists(name):
 
     for i in range(len(final_set)):
         a = l[i]
-        current = search_for_artist(token, name)
+        current = search_for_artist(token, a)
         current_popularity = get_artist_popularity(current)
         if current_popularity<lowest_p:
             lowest_p = current_popularity
@@ -247,7 +247,7 @@ def aggregate_artists(name):
 
     print(lowest_p_artist)
 
-aggregate_artists('downtown kayoto')
+aggregate_artists('mdma')
 
 
 
