@@ -111,7 +111,6 @@ def test():
     for item in ra:
         print(item["name"])
 
-    print(get_related_genres(t, drake["id"]).keys())
+    print(get_related_genres(t, drake["id"]))
 
 
-test()
