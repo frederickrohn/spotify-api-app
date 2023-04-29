@@ -46,9 +46,9 @@ def test_layered_find_related(name):
     d = find_related_arists_with_layers(t, id, 2)
 
     for value in d.values():
-        print(value[1])
+        print(value[1], value[0])
 
-test_layered_find_related("d4vd")
+test_layered_find_related("Luh Tyler")
 
 
 
