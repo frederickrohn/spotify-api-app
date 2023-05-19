@@ -48,9 +48,31 @@ def test_layered_find_related(name):
     for value in d.values():
         print(value[1], value[0])
 
-    
 
-test_layered_find_related("Luh Tyler")
+#test_layered_find_related("BROCKHAMPTON")
+
+
+def filter_artist_dictionary(dictionary):
+    max = int(input("Enter maximum popularity: "))
+    min = int(input("Enter minimum popularity: "))
+
+    filtered_dict = {}
+    for key, value in dictionary.items():
+        if value[0] <= max and value[0] >= min:
+            filtered_dict[key] = value
+    return filtered_dict
+
+def test_filter_artist_dictionary():
+    t = sm.get_token()
+    all_artists = find_related_arists_with_layers(t, sm.search_for_artist_by_name(t, "drake")['id'], 2)
+    print("original size: ", len(all_artists))
+    sorted = filter_artist_dictionary(all_artists)
+    print("sorted size: ", len(sorted))
+    for value in sorted.values():
+        print(value[1], value[0])
+
+# test_filter_artist_dictionary()
+
 
 
 
