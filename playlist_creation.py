@@ -51,9 +51,3 @@ def create_playlist_with_artist_choices():
 
 create_playlist_with_artist_choices()
 
-
-
-
-
-
-
