@@ -21,9 +21,9 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
                                                redirect_uri=redirect_uri,
                                                scope=scope))
 
-def create_playlist(artists):
+def create_playlist(artists, playlist_name):
     # Create a new playlist
-    playlist = sp.user_playlist_create(sp.me()['id'], 'My Automated Playlist', public=False)
+    playlist = sp.user_playlist_create(sp.me()['id'], playlist_name, public=False)
 
     # Iterate over the artists in the dictionary
     for key, value in artists.items():
@@ -46,7 +46,8 @@ def create_playlist_with_artist_choices():
     t = sm.get_token()
     all_artists = au.find_related_arists_with_layers(t, sm.search_for_artist_by_name(t, artist_name)['id'], 2)
     sorted = au.filter_artist_dictionary(all_artists)
-    new_playlist = create_playlist(sorted)
+    playlist_name = input("What do you want your playlist to be called? ")
+    new_playlist = create_playlist(sorted, playlist_name)
     print('Playlist link:', new_playlist['external_urls']['spotify'])
 
 create_playlist_with_artist_choices()
